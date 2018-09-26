@@ -40,9 +40,9 @@
                 <th>Data rate</th>
                 <th>Count</th>
                 <th>RSSI (Max, Min, Avg)</th>
+                <th>Solar Radiation data</th>
                 <th>SNR (Max, Min, Avg)</th>
                 <th>Interval</th>
-                <th>Solar Radiation data</th>
                 <th class="w3-right w3-margin-right"><a id="btn_add" class="w3-medium w3-hover-text-blue fa fa-plus-square-o" style="font-weight:bold;cursor:pointer;" title="Add Node" onclick="openAdd()"></a></th>
               </tr>
               <tr>
@@ -51,7 +51,7 @@
                 <td></td>
                 <td></td>
                 <td></td>
-                <td></td>
+
                 <td></td>
                 <td></td>
               </tr>
@@ -61,7 +61,7 @@
         <div class="w3-container w3-card-2 w3-light-gray w3-round-large w3-section w3-padding w3-margin-right">
           <div class="w3-panel w3-bar">
             <a class="link w3-bar-item w3-border w3-text-blue w3-hover-text-blue w3-round w3-padding-small w3-margin-right" style="cursor:pointer" onclick="openChart(event, 'rssi')">RSSI</a>
-            <a class="link w3-bar-item w3-border w3-text-blue w3-hover-text-blue w3-round w3-padding-small w3-margin-right" style="cursor:pointer" onclick="openChart(event, 'solar')">Solar</a>
+            <a class="link w3-bar-item w3-border w3-hover-text-blue w3-round w3-padding-small w3-margin-right" style="cursor:pointer" onclick="openChart(event, 'solar')">Solar</a>
             <a class="link w3-bar-item w3-border w3-hover-text-blue w3-round w3-padding-small w3-margin-right" style="cursor:pointer" onclick="openChart(event, 'lsnr')">SNR</a>
             <a class="link w3-bar-item w3-border w3-hover-text-blue w3-round w3-padding-small" style="cursor:pointer" onclick="openChart(event, 'interval')">Interval</a>
           </div>

@@ -29,7 +29,7 @@
             <label class="w3-label w3-text-black w3-wide" style="font-weight:bold;font-size:16px;">LoRa Data</label>
           </div>
           <div class="w3-panel">
-            <table id="table_nodes" class="w3-table w3-border w3-bordered w3-white w3-small">
+            <table id="table_nodes1" class="w3-table w3-border w3-bordered w3-white w3-small">
               <tr>
                   <th>EUI</th>
                   <th>Data rate</th>
@@ -65,7 +65,7 @@
             <label class="w3-label w3-text-black w3-wide" style="font-weight:bold;font-size:16px;">Solar Radiation</label>
           </div>
           <div class="w3-panel">
-            <table id="table_nodes" class="w3-table w3-border w3-bordered w3-white w3-small">
+            <table id="table_nodes2" class="w3-table w3-border w3-bordered w3-white w3-small">
               <tr>
                 </tr>
               <tr>
@@ -93,10 +93,11 @@
               <label class="w3-label w3-text-black w3-wide" style="font-weight:bold;font-size:16px;">Raspberry Pi</label>
             </div>
             <div class="w3-panel">
-              <table id="table_nodes" class="w3-table w3-border w3-bordered w3-white w3-small">
+              <table id="table_nodes3" class="w3-table w3-border w3-bordered w3-white w3-small">
                 <tr>
                   <th>Solar(Max, Min, Avg)</th>
-                  <th>Solar Radiation data</th>
+                  <th>경사일사량</th>
+                  <th>수평일사량</th>
                   <th>DC전압</th>
                   <th>DC전류</th>
                   </tr>
@@ -117,8 +118,149 @@
       </div>
   <script>
   init();
-  function init(){
-    isplay = false;
-  }
+  function refreshTable() {
+      var tableBody1 = document.getElementById('table_nodes1').firstElementChild;
+      var tableBody3 = document.getElementBtId('table_nodes3').firstElementChild;
+      var prefix = document.getElementById('options_prefix').value;
+
+      while (tableBody1.children.length > 2) {
+        tableBody1.removeChild(tableBody1.children[2]);
+      }
+      
+      while (tableBody3.children.length > 2){
+        tableBody3.removeChild(tableBody3.children[2]);
+      }
+
+      if (!Object.keys(nodes).length) {
+        tableBody1.children[1].style.display = 'table-row';
+        return;
+      }
+
+      if (!Object.keys(nodes).length) {
+        tablebody3.children[1].style.display = 'table-row';
+      }
+
+      tableBody1.children[1].style.display = 'none';
+      for (var x in nodes) {
+        var row = document.createElement('tr');
+        var eui = document.createElement('td');
+        var datarate = document.createElement('td');
+        var count = document.createElement('td');
+        var rssi = document.createElement('td');
+        var rssi_max = document.createElement('a');
+        var rssi_min = document.createElement('a');
+        var rssi_avg = document.createElement('a');
+        var solar = document.createElement('td');
+        var solar_max = document.createElement('a');
+        var solar_min = document.createElement('a');
+        var solar_avg = document.createElement('a');
+        var lsnr = document.createElement('td');
+        var lsnr_max = document.createElement('a');
+        var lsnr_min = document.createElement('a');
+        var lsnr_avg = document.createElement('a');
+        var interval = document.createElement('td');
+        var btns = document.createElement('td');
+        var btn_download = document.createElement('a');
+        var btn_play = document.createElement('a');
+        var btn_pause = document.createElement('a');
+        var btn_delete = document.createElement('a');
+
+        eui.innerHTML = x;
+        var datr = nodes[x].currentDatr;
+        datarate.innerHTML = datr ? datr : '-';
+        count.innerHTML = datr ? nodes[x].data[datr].length : '-';
+        rssi.setAttribute('class', 'w3-row');
+        rssi_max.setAttribute('class', 'w3-col w3-third');
+        rssi_max.innerHTML = nodes[x].rssi.max ? nodes[x].rssi.max : '-';
+        rssi_min.setAttribute('class', 'w3-col w3-third');
+        rssi_min.innerHTML = nodes[x].rssi.min ? nodes[x].rssi.min : '-';
+        rssi_avg.setAttribute('class', 'w3-col w3-third');
+        rssi_avg.innerHTML = nodes[x].rssi.avg ? nodes[x].rssi.avg : '-';
+        solar.setAttribute('class', 'w3-row');
+        solar_max.setAttribute('class', 'w3-col w3-third');
+        solar_max.innerHTML = nodes[x].rssi.max ? nodes[x].rssi.max : '-';
+        solar_min.setAttribute('class', 'w3-col w3-third');
+        solar_min.innerHTML = nodes[x].rssi.min ? nodes[x].rssi.min : '-';
+        solar_avg.setAttribute('class', 'w3-col w3-third');
+        solar_avg.innerHTML = nodes[x].rssi.avg ? nodes[x].rssi.avg : '-';
+        lsnr.setAttribute('class', 'w3-row');
+        lsnr_max.setAttribute('class', 'w3-col w3-third');
+        lsnr_max.innerHTML = nodes[x].lsnr.max ? nodes[x].lsnr.max : '-';
+        lsnr_min.setAttribute('class', 'w3-col w3-third');
+        lsnr_min.innerHTML = nodes[x].lsnr.min ? nodes[x].lsnr.min : '-';
+        lsnr_avg.setAttribute('class', 'w3-col w3-third');
+        lsnr_avg.innerHTML = nodes[x].lsnr.avg ? nodes[x].lsnr.avg : '-';
+        interval.innerHTML = nodes[x].interval ? nodes[x].interval.toFixed(2) + ' s' : '-';
+        btns.setAttribute('class', 'w3-right w3-margin-right');
+        btn_delete.setAttribute('class', 'w3-hover-text-blue fa fa-remove');
+        btn_delete.setAttribute('title', 'Delete Node');
+        btn_delete.setAttribute('style', 'cursor:pointer');
+        btn_delete.setAttribute('onclick', 'openDelete(this.parentNode.parentNode.id)');
+        btn_delete.style.display = isPlay ? 'none' : 'inline-block';
+
+        rssi.appendChild(rssi_max);
+        rssi.appendChild(rssi_min);
+        rssi.appendChild(rssi_avg);
+        solar.appendChild(solar_max);
+        solar.appendChild(solar_min);
+        solar.appendChild(solar_avg);
+        lsnr.appendChild(lsnr_max);
+        lsnr.appendChild(lsnr_min);
+        lsnr.appendChild(lsnr_avg);
+        btns.appendChild(btn_delete);
+        row.appendChild(eui);
+        row.appendChild(datarate);
+        row.appendChild(count);
+        row.appendChild(rssi);
+        row.appendChild(lsnr);
+        row.appendChild(interval);
+        row.appendChild(btns);
+        row.setAttribute('id', x);
+        tableBody.appendChild(row);
+      }
+    }
+
+    tableBody3.children[1].style.display = 'none';
+    for (var x in nodes) {
+      var row = document.createElement(row);
+      var solar = document.createElement('td');
+      var solar_max = document.createElement('a');
+      var solar_min = document.createElement('a');
+      var solar_avg = document.createElement('a');
+      var env = document.createElement('a');
+      var envh = document.createElement('a');
+      var dcv = document.createElement('a');
+      var dca = document.createElement('a');
+      var btn =  document.createElement('td');
+      var btn_play = document.createElement('a');
+      var btn_pause = document.createElement('a');
+      var btn_delete = document.createElement('a');
+    }
+    function updateTable(eui) {
+      var row = document.getElementById(eui);
+      var rssi = row.children[3];
+      var solar = row.children[4];
+      var lsnr = row.children[5];
+      var datr = nodes[eui].currentDatr;
+
+      if (row.children[1].innerHTML != datr) row.children[1].innerHTML = datr;
+      row.children[2].innerHTML = nodes[eui].data[datr].length;
+      rssi.children[0].innerHTML = nodes[eui].rssi.max;
+      rssi.children[1].innerHTML = nodes[eui].rssi.min;
+      rssi.children[2].innerHTML = nodes[eui].rssi.avg;
+      solar.children[0].innerHTML = nodes[eui].solar.max;
+      solar.children[1].innerHTML = nodes[eui].solar.min;
+      solar.children[2].innerHTML = nodes[eui].solar.avg;
+      lsnr.children[0].innerHTML = nodes[eui].lsnr.max;
+      lsnr.children[1].innerHTML = nodes[eui].lsnr.min;
+      lsnr.children[2].innerHTML = nodes[eui].lsnr.avg;
+      row.children[5].innerHTML = nodes[eui].interval.toFixed(2) + ' s';
+    }
+    function updateTable3(solar) {
+      var row =  document.getElementById(solar);
+      var solar
+
+    }
+
   </script>
 </html>
