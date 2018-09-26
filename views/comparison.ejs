@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NSS LAB</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/no-data-to-display.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src=/javascripts/realtime.highcharts.js></script>
+    <script src=/javascripts/realtime.io.js></script>
+    <script src=/javascripts/comparison.io.js></script>
+  </head>
+  <body class="w3-blue-grey font-arial">
+    <%- include ./modals/realtime_play %>
+    <%- include ./modals/realtime_download %>
+    <%- include ./modals/realtime_add %>
+    <%- include ./modals/realtime_delete %>
+    <%- include ./modals/realtime_options %>
+    <div class="w3-container w3-card-4 w3-light-gray w3-round-xlarge margin-a">
+      <div class="w3-container w3-margin-top">
+        <label class="w3-label w3-text-blue-gray w3-wide" style="font-weight:bold;font-size:32px;">NSS LAB</label>
+      </div>
+      <div class="w3-container w3-card-2 w3-gray w3-round-large w3-section w3-margin-right">
+        <div class="w3-container w3-card-2 w3-light-gray w3-round-large w3-section w3-padding w3-margin-right">
+          <div class="w3-panel">
+            <label class="w3-label w3-text-black w3-wide" style="font-weight:bold;font-size:16px;">LoRa Data</label>
+          </div>
+          <div class="w3-panel">
+            <table id="table_nodes" class="w3-table w3-border w3-bordered w3-white w3-small">
+              <tr>
+                  <th>EUI</th>
+                  <th>Data rate</th>
+                  <th>Count</th>
+                  <th>RSSI (Max, Min, Avg)</th>
+                  <th>SNR (Max, Min, Avg)</th>
+                  <th>Solar(Max, Min, Avg)</th>
+                  <th>Interval</th>
+                <th class="w3-right w3-margin-right"><a id="btn_add" class="w3-medium w3-hover-text-blue fa fa-plus-square-o" style="font-weight:bold;cursor:pointer;" title="Add Node" onclick="openAdd()"></a></th>
+              </tr>
+              <tr>
+                <td>No data available in table</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="w3-container w3-card-4 w3-light-gray w3-round-xlarge margin-a">
+      <div class="w3-container w3-margin-top">
+        <label class="w3-label w3-text-blue-gray w3-wide" style="font-weight:bold;font-size:32px;">NSS LAB</label>
+      </div>
+      <div class="w3-container w3-card-2 w3-gray w3-round-large w3-section w3-margin-right">
+        <div class="w3-container w3-card-2 w3-light-gray w3-round-large w3-section w3-padding w3-margin-right">
+          <div class="w3-panel">
+            <label class="w3-label w3-text-black w3-wide" style="font-weight:bold;font-size:16px;">Solar Radiation</label>
+          </div>
+          <div class="w3-panel">
+            <table id="table_nodes" class="w3-table w3-border w3-bordered w3-white w3-small">
+              <tr>
+                </tr>
+              <tr>
+                <td>No data available in table</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+    <div class="w3-container w3-card-4 w3-light-gray w3-round-xlarge margin-a">
+        <div class="w3-container w3-margin-top">
+          <label class="w3-label w3-text-blue-gray w3-wide" style="font-weight:bold;font-size:32px;">NSS LAB</label>
+        </div>
+        <div class="w3-container w3-card-2 w3-gray w3-round-large w3-section w3-margin-right">
+          <div class="w3-container w3-card-2 w3-light-gray w3-round-large w3-section w3-padding w3-margin-right">
+            <div class="w3-panel">
+              <label class="w3-label w3-text-black w3-wide" style="font-weight:bold;font-size:16px;">Raspberry Pi</label>
+            </div>
+            <div class="w3-panel">
+              <table id="table_nodes" class="w3-table w3-border w3-bordered w3-white w3-small">
+                <tr>
+                  <th>Solar(Max, Min, Avg)</th>
+                  <th>Solar Radiation data</th>
+                  <th>DC전압</th>
+                  <th>DC전류</th>
+                  </tr>
+                <tr>
+                  <td>No data available in table</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+  <script>
+  init();
+  function init(){
+    isplay = false;
+  }
+  </script>
+</html>
