@@ -95,6 +95,7 @@
             <div class="w3-panel">
               <table id="table_nodes3" class="w3-table w3-border w3-bordered w3-white w3-small">
                 <tr>
+                  <th>EUI</th>
                   <th>Solar(Max, Min, Avg)</th>
                   <th>경사일사량</th>
                   <th>수평일사량</th>
@@ -223,6 +224,7 @@
     tableBody3.children[1].style.display = 'none';
     for (var x in nodes) {
       var row = document.createElement('td');
+      var eui = document.createElement('td');
       var dcv = document.createElement('a');
       var dca = document.createElement('a');
       var env = document.createElement('a');
@@ -253,7 +255,7 @@
       row.children[5].innerHTML = nodes[eui].interval.toFixed(2) + ' s';
     }
     function updateTable3(solar) {
-      var row =  document.getElementById(ras);
+      var row =  document.getElementById(eui);
       var no = Buffer.from([data[0].readUInt16BE(0),data[1].readUInt16BE(0)])
       var dcv = Buffer.from([data[11].readUInt16BE(0),data[12].readUInt16BE(0)])
       var dca = Buffer.from([data[13].readUInt16BE(0),data[14].readUInt16BE(0)])
