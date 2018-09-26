@@ -1,6 +1,6 @@
 var socket = io('https://' + location.host);
 
-var Pi = {};
+var nodes = {};
 
 socket.on('connect', function () {
     d1 = 0
@@ -16,11 +16,11 @@ socket.on('connect', function () {
     count++
 });
 
-socket.on('data', function (data) {
-    var ras = msg.devras;
-    var datr3 = msg.datr3;
+socket.on('data', function (msg) {
+    var eui = msg.eui;
+    var datr = msg.datr;
 
-    if (!Pi[ras] || !isPlay) return;
+    if (!nodes[eui] || !isPlay) return;
 
 
     no = buffer.from([data[0],data[1]])
@@ -38,11 +38,12 @@ socket.on('data', function (data) {
     var dca = Number(msg.dca);
     var env = Number(msg.env);
     var envh = Number(msg.envh);
+    nodes[eui].data[datr].push({ dcv: dcv, dca: dca, env: env, envh: envh});
+    var values = get(nodes[eui],data[datr]);
+    nodes[eui].dcv = values.dcv;
+    nodes[eui].dca = values.dca;
+    nodes[eui].env = values.env;
+    nodes[eui].envh = values.envh;
 
-    Pi[ras].dcv = values.dcv;
-    Pi[ras].dca = values.dca;
-    Pi[ras].env = values.env;
-    Pi[ras].envh = values.envh;
-
-    updateTable3(ras);
+    updateTable3(eui);
 });

@@ -11,7 +11,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <script src=/javascripts/realtime.highcharts.js></script>
     <script src=/javascripts/realtime.io.js></script>
-    <script src=/javascripts/comparison.io.js></script>
+    <script src=/javascripts/comparison.fs.js></script>
   </head>
   <body class="w3-blue-grey font-arial">
     <%- include ./modals/realtime_play %>
@@ -222,15 +222,11 @@
 
     tableBody3.children[1].style.display = 'none';
     for (var x in nodes) {
-      var row = document.createElement(row);
-      var solar = document.createElement('td');
-      var solar_max = document.createElement('a');
-      var solar_min = document.createElement('a');
-      var solar_avg = document.createElement('a');
-      var env = document.createElement('a');
-      var envh = document.createElement('a');
+      var row = document.createElement('td');
       var dcv = document.createElement('a');
       var dca = document.createElement('a');
+      var env = document.createElement('a');
+      var envh = document.createElement('a');
       var btn =  document.createElement('td');
       var btn_play = document.createElement('a');
       var btn_pause = document.createElement('a');
@@ -257,8 +253,12 @@
       row.children[5].innerHTML = nodes[eui].interval.toFixed(2) + ' s';
     }
     function updateTable3(solar) {
-      var row =  document.getElementById(solar);
-      var solar
+      var row =  document.getElementById(ras);
+      var no = Buffer.from([data[0].readUInt16BE(0),data[1].readUInt16BE(0)])
+      var dcv = Buffer.from([data[11].readUInt16BE(0),data[12].readUInt16BE(0)])
+      var dca = Buffer.from([data[13].readUInt16BE(0),data[14].readUInt16BE(0)])
+      var env = Buffer.from([data[51].readUInt16BE(0),data[52].readUInt16BE(0)])
+      var envh = Buffer.from([data[53].readUInt16BE(0),data[54].readUInt16BE(0)])
 
     }
 
