@@ -17,11 +17,20 @@ socket.on('connect', function () {
 });
 
 socket.on('data', function (msg) {
-    var eui = msg.eui;
+    var eui = msg.deveui;
     var datr = msg.datr;
 
     if (!nodes[eui] || !isPlay) return;
-
+    
+    if(nodes[eui].currentDatr != datr) {
+        nodes[eui].currentDatr = datr;
+        nodes[eui].data[datr] = [];
+        nodes[eui].dcv = 0;
+        nodes[eui].dca = 0;
+        nodes[eui].env = 0;
+        nodes[eui].envh = 0;
+        clearCharts(eui);
+    }
 
     no = buffer.from([data[0],data[1]])
     dcv = Buffer.from([data[11],data[12]])
